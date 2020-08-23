@@ -1,0 +1,356 @@
+jQuery
+  jQuery是一个Javascript库，是对于ECMAScript、dom、bom的一个浅封装，让用户更方便操作
+
+jQuery功能：
+  使用CSS选择器进行元素查询
+  事件机制
+  Dom操作
+  属性操作
+  工具方法
+  Ajax
+
+jQuery安装
+  1.下载jQuery.js文件，通过script导入即可使用
+  2.使用cdn服务引入jQuery
+  3.通过npm进行安装使用(后期会用到)
+
+jQuery在线文档
+  1.http://hemin.cn/jq/
+  2.https://jquery.cuishifeng.cn
+
+jQuery入口函数
+  1.$(document).ready(function () {})
+  2.jQuery(document).ready(function () {})
+  3.$(function () {})   最常使用的格式，推荐使用
+  4.jQuery(function () {})
+
+jQuery核心函数
+  简称：jQuery函数($/jQuery)
+  引入jQuery库后，直接使用$即可
+  当函数用:$(xxx)
+  当对象用$.xxx()
+
+  1.作为一般函数调用:$(param)
+    1).参数为函数：当DOM加载完成后，执行此回调函数
+    2).参数为选择器字符串：查找所有匹配的标签，并将它们封装成jQuery对象
+    3).参数为DOM对象：将DOM对象封装成jQuery对象
+    4).参数为html标签字符串（用得少）：创建标签对象并封装成jQuery对象
+  
+  2.作为对象使用: $.xxx()
+    1).$.each()：隐式遍历数组
+    2).$.trim()：去除两端的空格
+    ...
+
+jQuery核心对象
+  简称：jQuery对象
+  得到jQuery对象：执行jQuery函数返回的就是jQuery对象
+  使用jQuery对象：$obj.xxx()
+
+  1.jQuery对象是一个包含所有匹配的任意多个dom元素的伪数组对象
+  2.基本行为
+    * size()/length：包含的DOM元素个数
+    * [idnex]/get(index)：得到对应位置的DOM元素
+    * each()：遍历包含的所有DOM元素
+    * index()：得到在所在兄弟元素中的下标
+
+jQuery选择器
+  选择器是什么？
+    -有特定格式的字符串
+  作用
+    - 用来查找特定页面元素
+    
+  1.基本选择器
+    - #id id选择器
+    - element 元素选择器
+    - .class 属性选择器
+    - * 任意标签
+    - selector1,selector2,selector3 取多个选择器的并集(组合选择器)
+    - selector1selector2selector3 取多个选择器的交集(相交选择器)
+
+  2.层次选择器 -- 查找子元素，后代元素，兄弟元素的选择器
+    1.ancestor descendant
+    在给定的祖先元素下匹配所有的后代元素
+    2.parent > child
+    在给定的父元素下匹配所有的子元素
+    3.prev + next
+    匹配所有紧接在prev元素后的next元素
+    4.prev ~ siblings(兄弟)
+    匹配prev元素之后的所有siblings元素
+
+  3.过滤选择器
+    selector:first    获取所有已选择到的元素中的第一个元素
+    selector:last   获取所有已选择到的元素中的最后一个元素
+    selector:even   获取所有已选择到的元素中的索引为偶数元素
+    selector:odd    获取所有已选择到的元素中的索引为奇数元素
+    selector:eq(index)    获取所有已选择到的元素中的索引为index的元素
+    selector:lt(num)    获取所有已选择到的元素中索引值小于num的元素
+    selector:gt(num)    获取所有已选择到的元素中索引值大于num的元素
+    selector1:not(selector2)    获取所有已选择到的元素中除了selector2的元素
+    selector:header   获取标题h1~h6获取所有已选择到的元素中的标题元素 
+    selector:contains(text)		获取所有已选择到的元素中文本包含text的元素
+    可见性过滤器
+      selector:visible	选择所有占据屏幕空间的元素
+		  selector:hidden	选择所有不占据屏幕空间的元素
+
+    属性过滤器
+      1. selector[attrKey]		
+        获取所有已选择到的元素中具有属性attrKey的元素
+      2. selector[attrKey=attrVal]	
+        获取所有已选择到的元素中具有属性attrKey，并且属性值为attrVal的元素
+      3. selector[attrKey^=attrVal]	
+        获取所有已选择到的元素中具有属性attrKey，并且属性值为以attrVal开头的元素
+      4. selector[attrKey$=attrVal]	
+        获取所有已选择到的元素中具有属性attrKey，并且属性值为以attrVal结尾的元素
+      5. selector[attrKey*=attrVal]	
+        获取所有已选择到的元素中具有属性attrKey，并且属性值为包含attrVal的元素
+      6. selector[attrKey!=attrVal]	
+        获取所有已选择到的元素中具有属性attrKey，并且属性值不为attrVal的元素或者	没有属性attrKey的元素
+
+    后代过滤器
+      1. selector :nth-child(index)	
+        获取每个selector元素中索引为index的子元素【注意】index从1开始
+      2. selector :first-child	
+        获取每个selector元素中第一个子元素（每个父元素的第一个子元素）
+        注意与selector :first的区别，获取所有selector元素的子元素中的第一个（只有一	个）
+      3. selector :last-child		
+        获取每个selector元素中最后一个子元素（每个父元素的最后一个子元素）
+      4. selector :only-child		
+        获取每个selector元素中独生子子元素（每个父元素如果只有一个孩子元素，获	取该元素）
+      5. selector :first-of-type	
+        获取每个selector元素中每种类型子元素中的第一个
+      6. Selector :last-of-type	
+        获取每个selector元素中每种类型子元素中的最后一个
+
+    表单过滤器
+      :enabled	
+        选取所有可用元素该选择器仅可用于选择支持disabled属性（attribute）的HTML	元素(<button>, <input>,<optgroup>,<option>, <select>,和 <textarea>)
+      :disabled	
+        选取所有不可用的元素该选择器也是仅可用于支持disabled属性的HTML元素
+      :checked	
+        选取所有被选中的元素，用于复选框和单选框，下拉框
+      :selected	
+        选取所有被选中的选项元素，该选择器只适用于<option> 
+      :focus	
+        选择当前获取焦点的元素
+      :input	
+        选取所有的<input><textarea><select><button>元素。注意：$(“:input”)是选择可	以让用户输入的标签元素；而$(“input”)是选择名字为input的标签元素
+      :text	
+        选取所有的单行文本框（<input type="text">）
+      :password	
+        选取所有的密码框
+
+jQuery事件机制
+  jQuery的事件绑定与Element元素不同，不可以使用onxxx属性，也不能使用addEventListener，而是使用on()，可以理解为on是对于Element元素事件绑定的封装。on()也支持事件代理。
+    1. on(event,[selector],[data],fn)
+    2. off(event,[selector],fn)
+    3.one(event,[selector],fn)
+    4. trigger(event,[data])
+    jQuery的事件绑定还支持快捷绑定
+    1. click([data],fn)
+    …
+
+  on( events,[selector],[data],handler(eventObject)) 
+    在选定的元素上绑定一个或多个事件处理函数。
+    如果on()方法的selector 参数为空，事件处理程序就被称为直接绑定。与bind()方法相同——只能绑定页面已有元素的事件。
+    如果on()方法的selector 参数不为空，事件处理程序就被称为委托。当事件直接发生在被绑定的元素上时，该程序不会被调用，而只有当事件发生在与选择器[selector]匹配的内部元素上时，才会调用该程序。
+
+  off( events [, selector ] [, handler ] )
+       移除一个事件处理函数。
+
+  trigger( eventType[,extraParameters])
+    模拟事件执行,比如说页面加载完毕想要触发一些事件或方法,可以使用trigger;
+    根据绑定到匹配元素的给定的事件类型执行所有的处理程序和行为。	extraParameters传递给事件处理程序的额外参数。为数组类型。
+    向事件中传入任意的数据：
+      $("p").click( function (event, a, b) {
+      }).trigger(“ click", ["foo", "bar"]);
+
+  鼠标事件
+    click()   鼠标单击事件
+    dblclick()    鼠标双击事件
+    hover()   鼠标悬停事件
+    mousedown()   鼠标按下事件
+    mouseup()   鼠标抬起事件
+    mouseenter()    鼠标进入事件	不支持子元素
+    mouseleave()    鼠标离开事件	不支持子元素
+    mouseout()    鼠标离开事件	支持子元素
+    mouseover()   鼠标进入事件	支持子元素
+    mousemove()   鼠标移动事件
+
+  键盘事件
+    keypress()   
+      按键按下事件，主要用来捕获数字(注意：包括Shift+数字的符号)、字母（注意：包    括大小写）、小键盘等除了F1-12、SHIFT、Alt、Ctrl、Insert、Home、PgUp、Delete、End、PgDn、ScrollLock、Pause、NumLock、{菜单键}、{开始键}和方向键外的ANSI字符。
+
+    keyup()	     
+      按键抬起事件，通常可以捕获键盘除了PrScrn所有按键(这里不讨论特殊键盘的特殊键）
+      
+    keydown()  	
+    按键按下事件，通常可以捕获键盘除了PrScrn所有按键(这里不讨论特殊键盘的特殊键）
+      keypress与keydown较相似. 
+      keypress具有以下缺点:
+        1.对中文输入法支持不好，无法响应中文输入
+        2.无法响应系统功能键（如delete，backspace）
+        3.由于前面两个限制，keyCode与keydown和keyup不是很一致
+        所以KeyPress主要用来接收字母、数字等ANSI字符，而 KeyDown 和 KeyUP 事件过程可以处理任何不被 KeyPress 识别的击键。诸如：功能键（F1-F12）、编辑键、定位键以及任何这些键和键盘换档键的组合等。
+
+  表单事件
+    focus()   聚焦事件
+    blur()    失去焦点事件
+    change()    当元素的值发生改变时激发的事件
+    select()    当textarea 或文本类型的input元素中的文本被选择时触			发的事件。绑定在单行文本框或多行文本框上
+    submit()    表单提交事件，绑定在form
+
+jQuery DOM操作
+  jQuery中提供了一系列的操作DOM节点的api,用于解决DOM原生API无法进行批量操作并且功能性较差的弊端。
+  
+  插入节点
+    append()	
+      在每个匹配元素里面的末尾处插入参数内容。作为它的最后一个子元素。
+      参数为一个或多个DOM 元素，DOM元素数组，HTML字符串，或者jQuery对	象，用来插在每个匹配元素里面的末尾。
+      
+    appendTo(target)	
+      颠倒了$(A).append(B)的效果，$(A).appendTo(B)将A追加到B中，将匹配	的元素插入到目标元素的最后面。
+
+    prepend()	
+      将参数内容插入到每个匹配元素的前面（元素内部）。也就是当前元素中的第	一个子元素。
+
+    prependTo(target)	
+      颠倒了$(A).prepend(B)的效果。
+
+    after()		
+      在匹配元素集合中的每个元素后面插入参数所指定的内容，作为其兄弟节	点插在每个匹配元素的后面。
+
+    insertAfter(target)   
+      在目标元素后面插入集合中每个匹配的元素(插入的元素作为目标元素的兄弟元	素)。颠倒了$(A).after(B)的效果。
+
+    before()	
+      在匹配元素的前面插入内容（外部插入）作为其兄弟节点插在集合中每个匹配元	素前面。
+
+    insertBefore(target) 
+      颠倒了$(A).before(B)的效果。
+  
+  删除节点
+    remove([selector]) 
+      从DOM中删除所有匹配的元素，返回值是一个指向已经被删除的节点的引用，	可以在以后再使用这些元素。该方法会移除元素，同时也会移除元素内部的一切，包括绑定的事件及与该元素相关的jQuery数据。
+
+    detach( [selector ] )
+      .detach()方法和.remove()类似，但是.detach()保存所有jQuery数据和被移走的元	素相关联事件。
+
+    empty()  
+      无参数。从DOM中移除集合中匹配元素的所有子节点。
+
+  复制节点
+    $(“#id”).clone(false)
+	  该方法返回的是一个节点的引用，参数默认为false，为浅复制；clone()方法中传递了一个参数true，为深复制；含义是复制元素的同时复制元素中所绑定的事件
+
+  替换节点 
+    replaceWith(newContent) 
+      用提供的内容替换集合中所有匹配的元素并且返回被删除元素的集合。该方法会	删除与节点相关联的所有数据和事件处理程序。
+      参数是用来插入的内容,可能是HTML字符串，DOM元素，或者jQuery对象。
+
+    replaeAll(target )
+      用集合的匹配元素替换每个目标元素。颠倒了replaceWith()操作效果。
+
+  包裹节点
+    wrap([wrappingElement])
+      在每个匹配的元素外层包上一个html元素。
+
+    wrapAll([wrappingElement]) 
+      将所有匹配的元素用一个元素来包裹，在所有匹配元素外面包一层HTML结构。	这种结构可以嵌套多层，但是最内层只能有一个元素。所有匹配元素将会被当作	是一个整体，在这个整体的外部用指定的HTML结构进行包裹。
+
+    wrapInner([wrappingElement])
+      每个匹配元素里面内容(子元素)都会被这种结构包裹。
+
+  节点遍历
+    注意:使用这些方法去解析html文档和xml文档都是可以的，因为html文档和xml文档都可以转换为dom模型。(也就是说在ajax中，如果后台传过来的是xml文档，那么我们使用jquery也可以用下面方法解析)。  	
+
+    children([selector])
+      用于取得匹配元素的子元素集合（只考虑子元素而不考虑任何后代元素）。
+        $(".content .inner")
+          => $(".content").children(".inner");
+
+    find(selector) 
+      在当前元素对象中的子元素中查找，和参数所匹配的所有的后代元素			$(".content").find(".inner");
+
+    next([selector])
+      取得匹配的元素集合中每一个元素紧邻的后面兄弟元素。
+
+    nextAll([selector])
+      查找当前元素之后所有的同辈元素。
+
+    prev([selector])
+      取得匹配元素前面紧邻的兄弟元素
+
+    prevAll([selector])
+        查找当前元素之前所有的同辈元素
+
+    siblings([selector])
+        取得匹配元素前后所有的兄弟元素
+
+    closest( selector)
+        取得和参数匹配的最近的元素，如果匹配不上继续向上查找父元素
+
+    filter(selector)
+        把当前所选择的所有元素再进行筛选过滤
+
+    parent([selector])
+        取得匹配元素集合中，每个元素的父元素
+
+    parents([selector])
+        获得集合中每个匹配元素的祖先元素
+
+jQuery属性操作
+  在dom中，我们通过setAttribute/getAttribute/style来操作元素属性，jQuery中提供了更加便捷的方法
+
+  1.attr( key|key,val|{key:val,key2:val2} )
+    获取匹配的元素集合中的第一个元素的属性的值或设置每一个匹配元素的一个或多个属性。
+   
+  2.prop( key|key,val|{key:val,key2:val2} )  
+    获取匹配的元素集中第一个元素的属性值或设置每一个匹配元素的一个或多个属性，常用于单值属性。
+   
+  3.removeAttr( attributeName )
+    为匹配的元素集合中的每个元素中移除一个属性(attribute)。
+
+  4.removeProp( propertyName )
+    为集合中匹配的元素删除一个属性（property）。一般来说，只需要移除自定义的属性。
+   
+  5. css( key|key,val|{key:val,key2:val2} )
+    获取匹配元素集合中的第一个元素的样式属性的计算值或设置每个匹配元素的一个或多个CSS属性。
+
+  6.addClass( className )
+    为每个匹配的元素添加指定的样式类名
+
+  7.hasClass( className )
+    确定任何一个匹配元素是否有被分配给定的（样式）类。
+
+  8.removeClass([className ])
+    移除集合中每个匹配元素上一个，多个或全部样式。
+
+jQuery静态方法
+  静态方法属于定义在jQuery函数上的方法，通过jQuery或者$直接调用的方法，也可以叫做工具方法
+
+  each() 	
+    遍历一个jQuery对象，为每个匹配元素执行一个函数；
+    参数 function(index, Element) 。
+
+  map() 	
+    该方法特别适用于获取或设置元素集合中的值；参数function(index,item){} 回	调函数
+
+  toArray() 
+    无参 ：返回一个包含jQuery对象集合中的所有DOM元素数组。
+
+  type() 得到数据的类型
+
+  isEmptyObject() 函数用于检查对象是否为空（不包含任何属性）
+
+  isPlainObject() 	函数用于判断指定参数是否是一个纯粹的对象
+
+  isNumberic()  函数用于判断指定参数是否是一个数字值
+
+  param() 方法创建数组或对象的序列化表示形式
+
+  trim() 函数用于去除字符串两端的空白字符。
+
+
+
+
+

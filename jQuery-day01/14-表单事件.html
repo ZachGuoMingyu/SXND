@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <form>
+    name:
+    <input type="text" name="FirstName">
+    <br />
+    <input type="submit" value="Submit">
+  </form>
+  <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script>
+    $(function () {
+      // submit
+      $('form').submit(function () {
+        alert('Submitted')
+      })
+
+      // change
+      $(':text').change(function () {
+        console.log($(this).val());
+      })
+
+      // 其他的事件大家自己试一下
+    })
+    
+  </script>
+</body>
+</html>

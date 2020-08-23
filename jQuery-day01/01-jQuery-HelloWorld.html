@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <!-- 本地引入jQuery -->
+  <!-- <script src="./jQuery.js"></script> -->
+
+  <!-- 通过cdn引入 -->
+  <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+  <script>
+    // 1.原生JS的固定写法
+    window.onload = function () {
+      // alert('HelloWorld -- JS')
+    }
+
+    // 2.使用jQuery的固定写法
+    $(document).ready(function () {
+      alert('HelloWorld -- jQuery')
+    })
+  </script>
+</body>
+</html>
