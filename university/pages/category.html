@@ -1,0 +1,27 @@
+<div>
+  栏目管理
+</div>
+
+<!-- 获取栏目管理的数据 -->
+<script>
+  $(function () {
+    // 加载栏目信息
+    function loadCategory() {
+      // 使用ajax进行网络数据请求
+      // 配置公共路径
+      $.ajax({
+        url: baseURL + '/category/findAll',
+        method: 'get',
+        success:function(res){
+          console.log();
+        },
+        error:function(err){
+          console.log(err);
+        }
+      })
+    }
+    // 执行获取栏目数据函数
+    // 我们发现数据拿不到 报401错误 因为我们登录以后 能够获取到token 那么接下来的所有请求 我们要拼接上他的token才可以获取到数据 所以在登录的时候要把token保存下来 回到登录 进行token的保存
+    loadCategory()
+  })
+</script>

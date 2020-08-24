@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    *{
+      margin: 0;
+      padding: 0;
+    }
+    html, body{
+      width: 100%;
+      height: 100%;
+    }
+    /* 设置main 水平垂直居中 */
+    body{
+      /* flex布局 */
+      display: flex;
+      /* 主轴方向对齐方式 */
+      justify-content: center;
+      /* 交叉轴对齐方式 */
+      align-items: center;
+    }
+    /* 主体样式 */
+    .main{
+      width: 400px;
+      height: 500px;
+      border: 5px solid teal;
+    }
+    /* 头部样式 */
+    .header{
+      width: 100%;
+      height: 70px;
+      line-height: 70px;
+      text-align: center;
+      font-size: 24px;
+      border-bottom: 5px solid teal;
+    }
+    /* 用户名,密码样式 */
+    .username, .password{
+      height: 100px;
+      background-color: pink;
+      line-height: 100px;
+      text-align: center;
+      font-size: 20px;
+    }
+    /* 设置输入框样式 */
+    input{
+      height: 25px;
+    }
+    /* 登录按钮样式 */
+    .login{
+      text-align: center;
+    }
+    /* 登录按钮样式 */
+    button{
+      width: 100px;
+      height: 40px;
+    }
+  </style>
+</head>
+<body>
+  <!-- 这里实现登录界面 -->
+  <div class="main">
+    <!-- 登录头部 -->
+    <div class="header">登录</div>
+    <!-- 用户名 -->
+    <div class="username">
+      <span>用户名:</span>
+      <input type="text" name="username">
+    </div>
+    <!-- 密码 -->
+    <div class="password">
+      <span>密码:</span>
+      <input type="text" name="password">
+    </div>
+    <!-- 登录按钮 -->
+    <div class="login">
+      <button>登录</button>
+    </div>
+  </div>
+
+  <!-- 导入jQuery -->
+  <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script>
+    $(function () {
+      // 定义登录方法
+      $('button').click(function () {
+        // console.log('登录');
+        // 打开接口 看下登录所需的参数 获取参数 进行登录
+        // 怎么进行登录 简单介绍一下 根据接口来获取对应的参数 拿到用户名和密码以后 传递给后台接口 后台接口进行验证 根据接口可知 我们这里需要获取password和username
+
+        // 获取用户名和密码
+        var username = $('input[name=username]').val()
+        var pwd = $('input[name=password]').val()
+        // 声明参数对象 根据接口字段进行设置
+        // 账号：admin1 密码 123321
+        var obj = {
+          username: username,
+          password: pwd
+        }
+        // console.log(obj);
+
+        // 发送请求
+        $.ajax({
+          url: 'http://localhost:7788/user/login',
+          method: 'post',
+          // 默认这样做是不可以的 因为我们发现数据是form data 但是接口需要的是json格式的数据 所以我们要根据接口接收参数的格式来设置对应的格式
+          // ajax默认数据发送的类型是查询字符串/表单类型 当我们需要发送其他格式的参数时可以修改contentType
+          contentType:'application/json',
+          // 参数需要使用JSON.stringfy进行转换 方法用于将 JavaScript 值转换为 JSON 字符串
+          data: JSON.stringify(obj),
+          success:function(res){
+            // 拿到token之后 就可以去获取用户信息了
+            console.log(res);
+
+            // 保存token 通过localstorage 这里配置完了 去config.js 中取出
+            localStorage.setItem('token', res.data.token)
+
+            // 登录成功 我们页面跳转 与js中的window.location使用类似 作用是重定向 也就是使用test.html来替换当前的界面
+            $(location).attr('href','./index.html')
+            
+          },
+          erroe:function(err){
+            console.log(err);
+          }
+        })
+        
+      })
+    })
+  </script>
+</body>
+</html>
