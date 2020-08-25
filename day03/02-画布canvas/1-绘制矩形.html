@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    canvas{
+      border: 1px solid red;
+    }
+  </style>
+</head>
+<body>
+
+  <canvas id="canvas" width="400px" height="400px"></canvas>
+
+  <script>
+    // 使用原生js
+    window.onload = function () {
+      // 获取画布元素
+      var canvas = document.getElementById('canvas')
+      // 获取2d上下文对象
+      var context = canvas.getContext('2d')
+      // 设置填充样式
+      context.fillStyle = 'teal'
+      // 绘制填充矩形 起始坐标x,y,宽,高
+      context.fillRect(0,0,200,200)
+
+      // 设置边框样式
+      context.strokeStyle = 'blue'
+      // 绘制边框矩形 起始坐标x,y,宽,高
+      context.strokeRect(200, 200, 200, 200)
+      // 设置边框线的宽度
+      context.lineWidth = 5
+
+      // 清空
+      context.clearRect(50, 50, 100, 100);
+
+    }
+  </script>
+</body>
+</html>
